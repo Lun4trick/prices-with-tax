@@ -1,4 +1,4 @@
-package getInput
+package fileops
 
 import (
 	"strconv"
