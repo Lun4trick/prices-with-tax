@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"example.com/price_calculator/fileops"
+	"example.com/price_calculator/prices"
 )
 
 func main() {
-	userInput := fileops.ReadUserInput("Enter the prices separated by space:")
-	pricesList := fileops.ConvertToFloat(userInput)
+	userInput := prices.ReadUserInput("Enter the prices separated by space:")
+	pricesList := prices.ConvertToFloat(userInput)
 
 	fmt.Println(pricesList)
 
