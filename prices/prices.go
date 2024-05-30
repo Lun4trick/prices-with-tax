@@ -1,21 +1,25 @@
 package prices
+import (
+	"strconv"
+)
 
 type PriceWithTax struct {
-	taxRate float64
-	basePrices []float64
-	pricesIncludedTax map[float64]float64
+	TaxRate float64 `json:"tax_rate"`
+	BasePrices []float64 `json:"base_prices"`
+	PricesIncludedTax map[string]float64 `json:"prices_included_tax"`
 }
 
 func New(prices []float64, taxRate float64) *PriceWithTax {
-	pricesIncludedTax := make(map[float64]float64, len(prices))
+	pricesIncludedTax := make(map[string]float64, len(prices))
 
 	for _, price := range prices {
-		pricesIncludedTax[price] = price * (1 + taxRate)
+		taxedPrice := price * (1 + (taxRate / 100))
+		pricesIncludedTax[strconv.FormatFloat(price, 'f', 2, 64)] = taxedPrice
 	}
 
 	return &PriceWithTax{
-		taxRate: taxRate,
-		basePrices: prices,
-		pricesIncludedTax: pricesIncludedTax,
+		TaxRate: taxRate,
+		BasePrices: prices,
+		PricesIncludedTax: pricesIncludedTax,
 	}
 }
